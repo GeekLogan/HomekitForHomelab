@@ -27,7 +27,7 @@ sensor.pincode = pin;
 sensor.addService(Service.TemperatureSensor)
   .getCharacteristic(Characteristic.CurrentTemperature)
   .on('get', function(callback) {
-    var cmd = "sensors | fgrep --color=never Core | head - -n 1 | cut -d'+' -f 2";
+    var cmd = "sensors | fgrep --color=never Core | head -n 1 | cut -d'+' -f 2";
     exec( cmd, getTemp );
 
     callback(null, temp);
