@@ -6,18 +6,23 @@ var uuid = require('../').uuid;
 var sys = require('util')
 var exec = require('child_process').exec;
 
+//----------CONFIG----------------
+var name = "SERVER";
+var pin = "000-00-000";
+//----------CONFIG----------------
+
 var temp;
 
-var sensorUUID = uuid.generate('sony:vaio:temperature');
-var sensor = exports.accessory = new Accessory('Server CPU Temperature', sensorUUID);
+var sensorUUID = uuid.generate( 'generic:server:' + name );
+var sensor = exports.accessory = new Accessory( 'CPU of ' + name, sensorUUID );
 
 function getTemp(error, stdout, stderr) {
-  temp = parseFloat( stdout + "" );
-  console.log( "Temperature Checked (" + temp + " degC)" );
+	temp = parseFloat( stdout + "" );
+	console.log( "Temperature Checked (" + temp + " degC)" );
 }
 
 sensor.username = "C1:5D:3A:AE:5E:FA";
-sensor.pincode = "000-00-000";
+sensor.pincode = pin;
 
 sensor.addService(Service.TemperatureSensor)
   .getCharacteristic(Characteristic.CurrentTemperature)
